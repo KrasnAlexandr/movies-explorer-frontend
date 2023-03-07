@@ -1,0 +1,51 @@
+.header__buttons {
+  display: flex;
+  gap: 31px;
+  align-items: center;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.header__signup {
+  background: transparent;
+  border: none;
+  color: white;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.header__signup:hover {
+  opacity: 0.8;
+}
+
+.header__signin {
+  padding: 9px 20px;
+  color: black;
+  background: #3ddc84;
+  border-radius: 3px;
+  border: none;
+}
+
+.header__signin:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 767px) {
+  .header__signin {
+    padding: 7px 12px;
+    font-size: 10px;
+  }
+
+  .header__signup {
+    font-size: 10px;
+  }
+
+  .header__buttons {
+    gap: 14px;
+  }
+}

@@ -1,0 +1,80 @@
+.filter__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter__input {
+  display: none;
+}
+
+.filter__icon {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  background: #ebebeb;
+  border-radius: 20px;
+  vertical-align: text-bottom;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+
+.filter__icon::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  border-radius: 20px;
+  transform: translate3d(2px, 2px, 0) scale3d(1, 1, 1);
+  transition: all 0.25s linear;
+}
+
+.filter__icon::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 20px;
+  transform: translate3d(2px, 2px, 0);
+  transition: all 0.2s ease-in-out;
+}
+
+.filter:active .filter__icon::after {
+  width: 28px;
+  transform: translate3d(2px, 2px, 0);
+}
+
+.filter:active .filter__input:checked + .filter__icon::after {
+  transform: translate3d(6px, 2px, 0);
+}
+
+.filter__input:checked + .filter__icon {
+  background-color: rgba(61, 220, 132, 1);
+}
+
+.filter__input:checked + .filter__icon::before {
+  transform: translate3d(16px, 2px, 0) scale3d(0, 0, 0);
+}
+
+.filter__input:checked + .filter__icon::after {
+  transform: translate3d(18px, 2px, 0);
+}
+
+.filter__description {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #ffffff;
+}
+
+@media (max-width: 767px) {
+  .filter__description {
+    font-size: 11px;
+  }
+}

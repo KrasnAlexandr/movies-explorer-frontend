@@ -1,0 +1,49 @@
+.input__label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.input__description {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #8b8b8b;
+}
+
+.input {
+  padding: 5px 0 10px 0;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(66, 66, 66, 1);
+  color: white;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.input:active,
+:hover,
+:focus {
+  outline: 0;
+  outline-offset: 0;
+}
+
+.input_type_error {
+  color: rgba(238, 52, 101, 1);
+}
+
+.input__error {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #ee3465;
+
+  position: absolute;
+  left: 0;
+  top: calc(100% + 6px);
+}
