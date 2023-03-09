@@ -1,10 +1,10 @@
-import styles from './AuthHeader.module.css';
+import './AuthHeader.css';
 import { MainLogo } from '../MainLogo';
 
 export const AuthHeader = ({ isSignupPage }) => (
-  <div className={styles.auth__header}>
+  <div className='auth__header'>
     <MainLogo />
-    <h1 className={styles.auth__title}>
+    <h1 className='auth__title'>
       {isSignupPage ? 'Добро пожаловать!' : 'Рады видеть!'}
     </h1>
   </div>

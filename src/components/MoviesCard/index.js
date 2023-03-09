@@ -1,4 +1,4 @@
-import styles from './MoviesCard.module.css';
+import './MoviesCard.css';
 
 export const MoviesCard = ({ data }) => {
   const { trailerLink, image, name, duration } = data;
@@ -15,21 +15,21 @@ export const MoviesCard = ({ data }) => {
   };
 
   return (
-    <article className={styles.movie}>
+    <div className='movie'>
       <a href={trailerLink} target='_blank'>
-        <img className={styles.movie__image} src={image} alt={name} />
+        <img className='movie__image' src={image} alt={name} />
       </a>
-      <div className={styles.movie__info}>
-        <p className={styles.movie__name}>{name}</p>
-        <div className={styles.movie__button}>
+      <div className='movie__info'>
+        <p className='movie__name'>{name}</p>
+        <div className='movie__button'>
           <button
             type='button'
-            className={styles.movie__like}
+            className='movie__like'
             title='добавить фильм'
           />
         </div>
-        <p className={styles.movie__duration}>{timeConverter(duration)}</p>
+        <p className='movie__duration'>{timeConverter(duration)}</p>
       </div>
-    </article>
+    </div>
   );
 };

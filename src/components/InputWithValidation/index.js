@@ -1,5 +1,3 @@
-import styles from './InputForAuth.module.css';
-
 export const InputWithValidation = ({
   description,
   type,
@@ -8,31 +6,29 @@ export const InputWithValidation = ({
   value,
   onChange,
   error,
+  inputLabelClassName,
+  inputDescriptionClassName,
   inputClassName,
+  inputErrorClassName,
+  inputHelperClassName,
   ...props
 }) => {
-  const calculateInputClassName = `${styles.input} ${
-    inputClassName ? inputClassName : ''
-  } ${error ? styles.input_type_error : ''}`;
-
   return (
-    <label className={styles.input__label}>
+    <label className={inputLabelClassName}>
       {description && (
-        <p className={styles.input__description}>{description}</p>
+        <span className={inputDescriptionClassName}>{description}</span>
       )}
       <input
         type={type}
         name={name}
-        className={calculateInputClassName}
+        className={`${inputClassName} ${error ? inputErrorClassName : ''}`}
         placeholder={placeholder || ''}
         required
         value={value || ''}
         onChange={onChange}
         {...props}
       />
-      <span className={`${styles.input__error} ${error ? '' : ''}`}>
-        {error}
-      </span>
+      <span className={inputHelperClassName}>{error}</span>
     </label>
   );
 };

@@ -1,4 +1,4 @@
-import styles from './Menu.module.css';
+import './Menu.css';
 import { ProfileButton } from '../ProfileButton';
 import { HEADER_NAVIGATION_PARAMS } from '../../utils/constants';
 import { Link, useLocation } from 'react-router-dom';
@@ -6,17 +6,17 @@ import { Link, useLocation } from 'react-router-dom';
 export const Menu = ({ isMenuOpen, onClick }) => {
   const currentPage = useLocation().pathname;
   const linkClassName = link =>
-    `${styles.menu__link} ${
-      currentPage === link.href ? styles.menu__link_type_active : ''
+    `header__menu-link ${
+      currentPage === link.href ? 'header__menu-link_type_active' : ''
     }`;
 
   return (
     <div
-      className={`${styles.menu} ${isMenuOpen ? styles.menu_type_open : ''}`}
+      className={`header__menu ${isMenuOpen ? 'header__menu_type_open' : ''}`}
     >
-      <div className={styles.menu__container}>
-        <nav className={styles.menu__list}>
-          <div className={styles.menu__links}>
+      <div className='header__menu-container'>
+        <nav className='header__menu-list'>
+          <div className='header__menu-links'>
             {HEADER_NAVIGATION_PARAMS.map(link => {
               return (
                 <Link
@@ -32,7 +32,7 @@ export const Menu = ({ isMenuOpen, onClick }) => {
           </div>
         </nav>
 
-        <ProfileButton className={styles.menu_profile} />
+        <ProfileButton className='header__menu-profile' />
       </div>
     </div>
   );

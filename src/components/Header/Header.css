@@ -3,11 +3,10 @@
   display: flex;
   place-items: center;
   height: 74px;
-  background-color: #073042;
 }
 
-.header_type_isauth {
-  background: rgba(32, 32, 32, 1);
+.header_type_green {
+  background-color: #073042;
 }
 
 .header__container {

@@ -1,4 +1,4 @@
-.button {
+.loading-button {
   max-width: 320px;
   width: 100%;
   padding: 9.5px 60px;
@@ -15,12 +15,12 @@
   background: rgba(32, 32, 32, 1);
 }
 
-.button:hover {
+.loading-button:hover {
   opacity: 0.8;
 }
 
 @media (max-width: 767px) {
-  .button {
+  .loading-button {
     width: calc(100% - 40px * 2);
   }
 }

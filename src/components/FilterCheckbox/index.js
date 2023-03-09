@@ -1,21 +1,21 @@
-import styles from './FilterCheckbox.module.css';
+import './FilterCheckbox.css';
 
 export const FilterCheckbox = ({ value, name }) => {
   const onChange = () => {};
 
   return (
-    <div className={styles.filter__container}>
+    <div className='search__checkbox'>
       <label>
         <input
-          className={styles.filter__input}
+          className='search__checkbox-input'
           type='checkbox'
           onChange={onChange}
           name={name}
           checked={value}
         />
-        <div className={styles.filter__icon} />
+        <span className='search__checkbox-icon' />
       </label>
-      <p className={styles.filter__description}>Короткометражки</p>
+      <p className='search__checkbox-description'>Короткометражки</p>
     </div>
   );
 };

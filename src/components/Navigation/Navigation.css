@@ -1,4 +1,4 @@
-.navigation {
+.header__navigation {
   margin-left: 62px;
   display: flex;
   gap: 16px;
@@ -8,25 +8,21 @@
   line-height: 18px;
 }
 
-.navigation__link {
+.header__navigation-link {
   color: white;
   text-decoration: none;
 }
 
-.navigation__link_type_active {
+.header__navigation-link_type_active {
   font-weight: 500;
 }
 
-.navigation__link:hover {
+.header__navigation-link:hover {
   opacity: 0.7;
 }
 
-.navigation__burger {
-  display: none;
-}
-
 @media (max-width: 1000px) {
-  .navigation {
+  .header__navigation {
     display: none;
   }
 }

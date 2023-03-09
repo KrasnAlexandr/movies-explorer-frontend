@@ -1,7 +1,7 @@
-import { Account } from '../../components/Profile';
+import { ProfileContent } from '../../components/Profile';
 
 export const Profile = () => (
   <>
-    <Account />
+    <ProfileContent />
   </>
 );

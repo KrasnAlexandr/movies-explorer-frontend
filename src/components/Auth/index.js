@@ -1,4 +1,4 @@
-import styles from './Auth.module.css';
+import './Auth.css';
 import { AuthHeader } from '../AuthHeader';
 import { AuthForm } from '../AuthForm';
 import { AuthFooter } from '../AuthFooter';
@@ -21,7 +21,7 @@ export const Auth = ({ isSignupPage }) => {
   }, [location]);
 
   return (
-    <div className={styles.auth}>
+    <div className='auth'>
       <AuthHeader isSignupPage={isSignupPage} />
       <AuthForm
         handleSubmit={handleSubmit}

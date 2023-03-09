@@ -1,17 +1,17 @@
-import styles from './Burger.module.css';
+import './Burger.css';
 
 export const Burger = ({ isMenuOpen, onClick }) => {
   return (
     <button
       type='button'
-      className={`${styles.header__burger} ${
-        isMenuOpen ? styles.header__burger_type_active : ''
+      className={`header__burger ${
+        isMenuOpen ? 'header__burger_type_active' : ''
       }`}
       onClick={onClick}
     >
-      <div
-        className={`${styles.header__line} ${
-          isMenuOpen ? styles.header__line_type_hidden : ''
+      <span
+        className={`header__line ${
+          isMenuOpen ? 'header__line_type_hidden' : ''
         }`}
       />
     </button>

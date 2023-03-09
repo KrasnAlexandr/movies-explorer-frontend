@@ -22,15 +22,17 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header />
-      <Routes>
-        <Route path={PAGE_MANAGER.HOME} element={<Main />} />
-        <Route path={PAGE_MANAGER.MOVIES} element={<Movies />} />
-        <Route path={PAGE_MANAGER.SAVED_MOVIES} element={<SavedMovies />} />
-        <Route path={PAGE_MANAGER.PROFILE} element={<Profile />} />
-        <Route path={PAGE_MANAGER.SIGNIN} element={<Auth />} />
-        <Route path={PAGE_MANAGER.SIGNUP} element={<Auth isSignupPage />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
+      <main>
+        <Routes>
+          <Route path={PAGE_MANAGER.HOME} element={<Main />} />
+          <Route path={PAGE_MANAGER.MOVIES} element={<Movies />} />
+          <Route path={PAGE_MANAGER.SAVED_MOVIES} element={<SavedMovies />} />
+          <Route path={PAGE_MANAGER.PROFILE} element={<Profile />} />
+          <Route path={PAGE_MANAGER.SIGNIN} element={<Auth />} />
+          <Route path={PAGE_MANAGER.SIGNUP} element={<Auth isSignupPage />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </main>
       <Footer />
     </CurrentUserContext.Provider>
   );

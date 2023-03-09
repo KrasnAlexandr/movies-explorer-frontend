@@ -1,48 +1,44 @@
-import styles from './AboutProject.module.css';
+import './AboutProject.css';
 import { SectionTitle } from '../common/SectionTitle';
 export const AboutProject = () => (
-  <section className={styles.project} id='about'>
-    <div className={styles.project__container}>
-      <SectionTitle>О проекте</SectionTitle>
-      <ul className={styles.project__content}>
-        <li className={styles.project__item}>
-          <h3 className={styles.item__title}>
+  <section className='project' id='about'>
+    <div className='project__container'>
+      <SectionTitle className='project__title'>О проекте</SectionTitle>
+      <ul className='project__content'>
+        <li className='project__item'>
+          <h3 className='project__item-title'>
             Дипломный проект включал 5 этапов
           </h3>
-          <p className={styles.item__text}>
+          <p className='project__item-text'>
             Составление плана, работу над бэкендом, вёрстку, добавление
             функциональности и финальные доработки.
           </p>
         </li>
 
-        <li className={styles.project__item}>
-          <h3 className={styles.item__title}>
+        <li className='project__item'>
+          <h3 className='project__item-title'>
             На выполнение диплома ушло 5 недель
           </h3>
-          <p className={styles.item__text}>
+          <p className='project__item-text'>
             У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было
             соблюдать, чтобы успешно защититься.
           </p>
         </li>
       </ul>
 
-      <div className={styles.project__progressbar}>
-        <div
-          className={`${styles.progressbar__share} ${styles.progressbar__front}`}
-        >
+      <div className='project__progressbar'>
+        <div className='project__progressbar-share project__progressbar-share_type_front'>
           <p>1 неделя</p>
         </div>
 
-        <div
-          className={`${styles.progressbar__share} ${styles.progressbar__back}`}
-        >
+        <div className='project__progressbar-share project__progressbar-share_type_back'>
           <p>4 недели</p>
         </div>
       </div>
 
-      <div className={styles.project__text}>
-        <p className={styles.text__front}>Back-end</p>
-        <p className={styles.text__back}>Front-end</p>
+      <div className='project__side-text'>
+        <p className='project__text project__text_type_front'>Back-end</p>
+        <p className='project__text project__text_type_back'>Front-end</p>
       </div>
     </div>
   </section>

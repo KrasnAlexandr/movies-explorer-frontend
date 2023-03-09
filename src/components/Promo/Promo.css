@@ -25,12 +25,14 @@
   position: absolute;
 }
 
-.promo__title_type_web {
-  width: 56%;
+.promo__title {
   color: white;
-
   font-style: normal;
   font-weight: 400;
+}
+
+.promo__title_type_web {
+  width: 56%;
   font-size: 50px;
   line-height: 58px;
 }
@@ -55,7 +57,7 @@
   background-color: transparent;
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 3px;
-
+  text-decoration: none;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -89,12 +91,9 @@
   .promo__title_type_tablet {
     display: block;
     margin-top: 48px;
-    font-style: normal;
-    font-weight: 400;
     font-size: 40px;
     line-height: 50px;
     text-align: center;
-    color: #ffffff;
   }
 
   .promo__text {

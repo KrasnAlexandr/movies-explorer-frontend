@@ -1,11 +1,6 @@
 .auth__footer {
   width: 100%;
-  justify-self: end;
-  margin-top: 197px;
-}
-
-.auth__footer_type_litle {
-  margin-top: 128px;
+  padding-bottom: 70px;
 }
 
 .auth__button {
@@ -45,9 +40,17 @@
   opacity: 0.7;
 }
 
+@media (max-width: 1000px) {
+  .auth__footer {
+    padding-bottom: 232px;
+  }
+}
+
+
+
 @media (max-width: 767px) {
   .auth__footer {
-    margin-top: 285px;
+    padding-bottom: 30px;
   }
 
   .auth__button {

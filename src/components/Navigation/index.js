@@ -1,4 +1,4 @@
-import styles from './Navigation.module.css';
+import './Navigation.css';
 import { Link, useLocation } from 'react-router-dom';
 import { HEADER_NAVIGATION_PARAMS } from '../../utils/constants';
 import { ProfileButton } from '../ProfileButton';
@@ -11,8 +11,8 @@ export const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const linkClassName = link =>
-    `${styles.navigation__link} ${
-      currentPage === link.href ? styles.navigation__link_type_active : ''
+    `header__navigation-link ${
+      currentPage === link.href ? 'header__navigation-link_type_active' : ''
     }`;
 
   const toggleMenu = () => {
@@ -21,7 +21,7 @@ export const Navigation = () => {
 
   return (
     <>
-      <nav className={styles.navigation}>
+      <nav className='header__navigation'>
         {HEADER_NAVIGATION_PARAMS.map((link, index) => {
           if (index !== 0) {
             return (

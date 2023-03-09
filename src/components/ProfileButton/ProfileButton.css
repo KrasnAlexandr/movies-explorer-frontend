@@ -1,4 +1,4 @@
-.navigation__profile {
+.header__profile-button {
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
@@ -9,7 +9,7 @@
   text-decoration: none;
 }
 
-.navigation__profile:after {
+.header__profile-button:after {
   content: '';
   width: 26px;
   height: 30px;
@@ -20,12 +20,12 @@
   border-radius: 4px;
 }
 
-.navigation__profile:hover {
+.header__profile-button:hover {
   opacity: 0.7;
 }
 
 @media (max-width: 1000px) {
-  .navigation__profile_type_hidden {
+  .header__profile-button_type_hidden {
     display: none;
   }
 }

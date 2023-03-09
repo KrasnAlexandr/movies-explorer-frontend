@@ -1,5 +1,3 @@
-import styles from './SectionTitle.module.css';
-
-export const SectionTitle = ({ children }) => (
-  <h2 className={styles.title}>{children}</h2>
+export const SectionTitle = ({ className, children }) => (
+  <h2 className={className}>{children}</h2>
 );

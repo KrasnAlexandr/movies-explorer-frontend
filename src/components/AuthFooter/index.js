@@ -1,4 +1,4 @@
-import styles from './AuthFooter.module.css';
+import './AuthFooter.css';
 import { Link } from 'react-router-dom';
 
 export const AuthFooter = ({ isDisabled, isSignupPage = false }) => {
@@ -22,13 +22,9 @@ export const AuthFooter = ({ isDisabled, isSignupPage = false }) => {
     : contentParams.signin;
 
   return (
-    <div
-      className={`${styles.auth__footer} ${
-        isSignupPage ? styles.auth__footer_type_litle : ''
-      }`}
-    >
+    <div className='auth__footer'>
       <button
-        className={styles.auth__button}
+        className='auth__button'
         type='submit'
         title={currentContent.buttonTitle}
         disabled={isDisabled}
@@ -36,9 +32,9 @@ export const AuthFooter = ({ isDisabled, isSignupPage = false }) => {
         {currentContent.buttonTitle}
       </button>
 
-      <p className={styles.auth__text}>
+      <p className='auth__text'>
         {currentContent.text}{' '}
-        <Link to={currentContent.linkHref} className={styles.auth__link}>
+        <Link to={currentContent.linkHref} className='auth__link'>
           {currentContent.linkText}
         </Link>
       </p>
