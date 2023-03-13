@@ -1,0 +1,30 @@
+.auth__header {
+  width: 100%;
+  padding: 70px 0 40px 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.auth__title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: #ffffff;
+}
+
+@media (max-width: 1000px) {
+  .auth__header {
+    padding-top: 100px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .auth__header {
+    padding: 56px 0 80px 0;
+    align-items: center;
+    gap: 46px;
+  }
+}

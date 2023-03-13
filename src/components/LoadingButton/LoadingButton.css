@@ -1,0 +1,26 @@
+.loading-button {
+  max-width: 320px;
+  width: 100%;
+  padding: 9.5px 60px;
+  display: block;
+  margin: 50px auto 80px auto;
+  text-align: center;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: white;
+  border: 1px solid rgba(66, 66, 66, 1);
+  border-radius: 3px;
+  background: rgba(32, 32, 32, 1);
+}
+
+.loading-button:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 767px) {
+  .loading-button {
+    width: calc(100% - 40px * 2);
+  }
+}

@@ -1,0 +1,29 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/index.css);
+
+:root {
+  --max-width: 1140px;
+  --min-width: 320px;
+
+  --web-container: calc(100% - 70px * 2);
+  --tablet-container: calc(100% - 50px * 2);
+  --tablet-container-second: calc(100% - 30px * 2);
+  --mobile-container: calc(100% - 14px * 2);
+}
+
+.root {
+  min-height: 100vh;
+  min-width: var(--min-width);
+  background-color: rgba(32, 32, 32, 1);
+  color: white;
+  margin: 0 auto;
+  width: 100%;
+  font-family: 'Inter', 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
