@@ -17,6 +17,7 @@ export const AuthForm = ({
       onSubmit={handleSubmit}
       className='auth__form'
       name={location.slice(1) || ''}
+      noValidate
     >
       <div className='auth__form-container'>
         {isSignupPage && (
@@ -28,6 +29,8 @@ export const AuthForm = ({
             onChange={handleChange}
             error={errors.name}
             required
+            minLength={2}
+            maxLength={30}
             inputLabelClassName='auth__label'
             inputClassName='auth__input'
             inputDescriptionClassName='auth__input-description'

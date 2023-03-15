@@ -7,9 +7,9 @@
 }
 
 .movie__image {
-  height: auto;
+  height: 151px;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .movie__image:hover {
@@ -53,4 +53,16 @@
   background: #313131;
   border-radius: 50px;
   border: 2px solid white;
+}
+
+@media (max-width: 1000px) {
+  .movie__image {
+    height: 191px;
+  }
+}
+
+@media (max-width: 767px) {
+  .movie__image {
+    height: 168px;
+  }
 }

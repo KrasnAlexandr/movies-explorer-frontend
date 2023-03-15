@@ -1,7 +1,7 @@
 import './MoviesCard.css';
 
 export const MoviesCard = ({ data }) => {
-  const { trailerLink, image, name, duration } = data;
+  const { trailerLink, image, nameRU, duration } = data;
 
   const timeConverter = time => {
     if (time < 60) {
@@ -14,13 +14,15 @@ export const MoviesCard = ({ data }) => {
     }
   };
 
+  const movieImage = () => `https://api.nomoreparties.co/${image.url}`;
+
   return (
     <div className='movie'>
       <a href={trailerLink} target='_blank'>
-        <img className='movie__image' src={image} alt={name} />
+        <img className='movie__image' src={movieImage()} alt={nameRU} />
       </a>
       <div className='movie__info'>
-        <p className='movie__name'>{name}</p>
+        <p className='movie__name'>{nameRU}</p>
         <div className='movie__button'>
           <button
             type='button'

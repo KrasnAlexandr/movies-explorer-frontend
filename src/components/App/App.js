@@ -8,16 +8,19 @@ import { Footer } from '../Footer';
 import { Route, Routes } from 'react-router-dom';
 import { PAGE_MANAGER } from '../../utils/constants';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NotFound } from '../../pages/NotFound';
-
-const testUser = {
-  name: 'Виталий',
-  email: 'pochta@yandex.ru'
-};
+import mainApi from '../../utils/Api/MainApi';
 
 function App() {
-  const [currentUser, setCurrenUser] = useState(testUser);
+  const [currentUser, setCurrenUser] = useState(null);
+
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      mainApi.getUserInfo().then(res => setCurrenUser(res));
+    }
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -27,9 +30,18 @@ function App() {
           <Route path={PAGE_MANAGER.HOME} element={<Main />} />
           <Route path={PAGE_MANAGER.MOVIES} element={<Movies />} />
           <Route path={PAGE_MANAGER.SAVED_MOVIES} element={<SavedMovies />} />
-          <Route path={PAGE_MANAGER.PROFILE} element={<Profile />} />
-          <Route path={PAGE_MANAGER.SIGNIN} element={<Auth />} />
-          <Route path={PAGE_MANAGER.SIGNUP} element={<Auth isSignupPage />} />
+          <Route
+            path={PAGE_MANAGER.PROFILE}
+            element={<Profile setCurrenUser={setCurrenUser} />}
+          />
+          <Route
+            path={PAGE_MANAGER.SIGNIN}
+            element={<Auth setCurrenUser={setCurrenUser} />}
+          />
+          <Route
+            path={PAGE_MANAGER.SIGNUP}
+            element={<Auth setCurrenUser={setCurrenUser} isSignupPage />}
+          />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </main>

@@ -3,7 +3,7 @@
   width: 23px;
   height: 23px;
 
-  position: fixed;
+  position: absolute;
   right: calc(0% + 30px);
   z-index: 101;
 

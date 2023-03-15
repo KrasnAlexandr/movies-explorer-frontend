@@ -11,7 +11,7 @@ export const AboutMe = () => (
 
         <h3 className='about__name'>Александр</h3>
 
-        <p className='about__profession'>Фронтенд-разработчик, 28 лет</p>
+        <p className='about__profession'>Фронтенд-разработчик, 29 лет</p>
 
         <p className='about__truestory'>
           Я родился и живу в Таганроге, закончил факультет экономики ЮФУ. У меня

@@ -54,3 +54,5 @@ export const HEADER_NAVIGATION_PARAMS = [
     href: PAGE_MANAGER.SAVED_MOVIES
   }
 ];
+
+export const DEFAULT_ERROR_MESSAGE = 'Что-то пошло не так...';

@@ -1,24 +1,50 @@
 import './Profile.css';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import useFormWithValidation from '../../hooks/useFormWithValidation';
 import { InputWithValidation } from '../InputWithValidation';
 import { useNavigate } from 'react-router-dom';
 import { PAGE_MANAGER } from '../../utils/constants';
+import authApi from '../../utils/Api/AuthApi';
+import mainApi from '../../utils/Api/MainApi';
 
-export const ProfileContent = () => {
+export const ProfileContent = ({ setCurrenUser }) => {
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isInfoUpdated, setIsInfoUpdated] = useState(false);
   const navigate = useNavigate();
+
+  const currentData = currentUser || { name: '', email: '' };
+
+  const informationUpdated = () => {
+    setIsInfoUpdated(true);
+
+    setTimeout(() => {
+      setIsInfoUpdated(false);
+    }, 1500);
+  };
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    console.log(values);
+    setIsLoading(true);
+    setErrorMessage(null);
+
+    mainApi
+      .updateUserInfo({ name: values.name, email: values.email })
+      .then(newInfo => {
+        setCurrenUser(newInfo);
+        informationUpdated();
+      })
+      .catch(err => setErrorMessage(err.message))
+      .finally(() => setIsLoading(false));
   };
 
   const handleSignOut = () => {
-    //удаление токена
+    setCurrenUser(null);
+    authApi.signOut();
     navigate(`${PAGE_MANAGER.HOME}`);
   };
 
@@ -26,9 +52,11 @@ export const ProfileContent = () => {
     currentUser && resetForm(currentUser);
   }, [currentUser, resetForm]);
 
+  const editButtonState = !isValid || isLoading;
+
   return (
     <div className='profile'>
-      <h2 className='profile__title'>{`Привет, ${currentUser.name}!`}</h2>
+      <h2 className='profile__title'>Привет, {currentData.name}!</h2>
       <form
         name='profile'
         className='profile__form'
@@ -67,8 +95,22 @@ export const ProfileContent = () => {
         </div>
 
         <div className='profile__buttons'>
-          <button className='profile__edit' type='submit' title='Редактировать'>
-            Редактировать
+          {errorMessage && (
+            <p className='profile__errors-helper'>{errorMessage}</p>
+          )}
+          <button
+            className={`profile__edit ${
+              editButtonState ? 'profile__edit_type_disabled' : ''
+            }`}
+            type='submit'
+            title='Редактировать'
+            disabled={editButtonState}
+          >
+            {isInfoUpdated
+              ? 'Данные были изменены'
+              : isLoading
+              ? 'Передача данных...'
+              : 'Редактировать'}
           </button>
           <button
             type='button'
