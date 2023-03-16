@@ -92,7 +92,8 @@ export const SavedMovies = () => {
       if (isShortMovies) {
         currentList.length === 0 && setIsNothingFound(true);
       } else {
-        filteredMovie.length !== 0 && setIsNothingFound(false);
+        (currentList.length === 0 && setIsNothingFound(true)) ||
+          (filteredMovie.length !== 0 && setIsNothingFound(false));
       }
     }
   }, [isFilter, currentList]);
