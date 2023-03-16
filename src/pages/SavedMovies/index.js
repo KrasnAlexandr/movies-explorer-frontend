@@ -47,6 +47,13 @@ export const SavedMovies = () => {
     filteredShortMoviesToShow
   ]);
 
+  const updateCurrentList = () => {
+    const filteredAllMovies = getFilteredMovies(moviesToShow, values.movie);
+
+    setFilteredMovie(filteredAllMovies);
+    setFilteredOnlyShortMovies(getOnlyShortMovies(filteredAllMovies));
+  };
+
   const handleSubmit = evt => {
     evt.preventDefault();
 
@@ -59,10 +66,7 @@ export const SavedMovies = () => {
       setIsFilter(true);
     }
 
-    const filteredAllMovies = getFilteredMovies(moviesToShow, values.movie);
-
-    setFilteredMovie(filteredAllMovies);
-    setFilteredOnlyShortMovies(getOnlyShortMovies(filteredAllMovies));
+    updateCurrentList();
   };
 
   useEffect(() => {
@@ -79,10 +83,7 @@ export const SavedMovies = () => {
     setOnlyShortMovies(getOnlyShortMovies(moviesToShow));
 
     if (isFilter) {
-      const filteredAllMovies = getFilteredMovies(moviesToShow, values.movie);
-
-      setFilteredMovie(filteredAllMovies);
-      setFilteredOnlyShortMovies(getOnlyShortMovies(filteredAllMovies));
+      updateCurrentList();
     }
   }, [moviesToShow]);
 
