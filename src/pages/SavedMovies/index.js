@@ -25,23 +25,24 @@ export const SavedMovies = () => {
   };
 
   const currentList = useMemo(() => {
-    if (isShortMovies && !isFilter) {
-      return onlyShortMoviesToShow;
-    }
-    if (!isShortMovies && !isFilter) {
-      return moviesToShow;
-    }
-    if (isShortMovies && isFilter) {
-      return filteredShortMoviesToShow;
-    }
-    if (!isShortMovies && isFilter) {
-      return filteredMovie;
+    if (!isFilter) {
+      if (isShortMovies) {
+        return onlyShortMoviesToShow;
+      } else {
+        return moviesToShow;
+      }
+    } else {
+      if (isShortMovies) {
+        return filteredShortMoviesToShow;
+      } else {
+        return filteredMovie;
+      }
     }
   }, [
-    moviesToShow,
-    onlyShortMoviesToShow,
-    isShortMovies,
     isFilter,
+    isShortMovies,
+    onlyShortMoviesToShow,
+    moviesToShow,
     filteredMovie,
     filteredShortMoviesToShow
   ]);
@@ -78,7 +79,7 @@ export const SavedMovies = () => {
     setOnlyShortMovies(getOnlyShortMovies(moviesToShow));
 
     if (isFilter) {
-      const filteredAllMovies = filteredMovies(moviesToShow);
+      const filteredAllMovies = getFilteredMovies(moviesToShow, values.movie);
 
       setFilteredMovie(filteredAllMovies);
       setFilteredOnlyShortMovies(getOnlyShortMovies(filteredAllMovies));

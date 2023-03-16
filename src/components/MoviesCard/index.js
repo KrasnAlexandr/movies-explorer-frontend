@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { PAGE_MANAGER } from '../../utils/constants';
 import mainApi from '../../utils/Api/MainApi';
+import React, { memo } from 'react';
 
-export const MoviesCard = ({ data, setMovesToShow, userMovies }) => {
+const MoviesCard = ({ data, setMovesToShow, userMovies }) => {
   const currentPage = useLocation().pathname;
   const [isSavedMovie, setIsSavedMovie] = useState(false);
   const [moveId, setMoveId] = useState('');
@@ -119,3 +120,5 @@ export const MoviesCard = ({ data, setMovesToShow, userMovies }) => {
     </div>
   );
 };
+
+export default memo(MoviesCard);

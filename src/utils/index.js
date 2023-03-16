@@ -1,6 +1,6 @@
 export const getFilteredMovies = (movies, input) =>
   movies.filter(movie =>
-    movie.nameRU.toLowerCase().includes(input.toLowerCase().trim())
+    movie.nameRU.toLowerCase().trim().includes(input.toLowerCase().trim())
   );
 
 export const getOnlyShortMovies = movies =>

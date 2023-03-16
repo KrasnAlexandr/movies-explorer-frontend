@@ -1,5 +1,5 @@
 import './MoviesCardList.css';
-import { MoviesCard } from '../MoviesCard';
+import MoviesCard from '../MoviesCard';
 
 export const MoviesCardList = ({
   isLoadingError,
