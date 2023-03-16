@@ -7,6 +7,7 @@ import useFormWithValidation from '../../hooks/useFormWithValidation';
 import { useEffect, useState } from 'react';
 import moviesApi from '../../utils/Api/MoviesApi';
 import mainApi from '../../utils/Api/MainApi';
+import { getFilteredMovies, getOnlyShortMovies } from '../../utils';
 
 export const Movies = () => {
   const { values, handleChange, errors, isValid, resetForm } =
@@ -55,21 +56,17 @@ export const Movies = () => {
 
         setUserMovies(savedMovies);
 
-        const filteredMovies = allMovies.filter(movie =>
-          movie.nameRU.toLowerCase().includes(values.movie.toLowerCase().trim())
-        );
+        const newList = getFilteredMovies(allMovies, values.movie);
 
-        const firstPartMovies = filteredMovies.slice(0, cardsToShow);
-        const otherMovies = filteredMovies.slice(cardsToShow);
+        const firstPartMovies = newList.slice(0, cardsToShow);
+        const otherMovies = newList.slice(cardsToShow);
 
-        const onlyShortMovies = filteredMovies.filter(
-          movie => movie.duration <= 40
-        );
+        const onlyShortMovies = getOnlyShortMovies(newList);
 
         const firstPartShortMovies = onlyShortMovies.slice(0, cardsToShow);
         const otherShortMovies = onlyShortMovies.slice(cardsToShow);
 
-        if (filteredMovies.length === 0) {
+        if (newList.length === 0) {
           setIsNothingFound(true);
         } else {
           setMovesToShow(firstPartMovies);

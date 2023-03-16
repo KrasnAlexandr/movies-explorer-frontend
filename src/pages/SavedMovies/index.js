@@ -4,6 +4,7 @@ import { MoviesCardList } from '../../components/MoviesCardList';
 import useFormWithValidation from '../../hooks/useFormWithValidation';
 import { useEffect, useMemo, useState } from 'react';
 import mainApi from '../../utils/Api/MainApi';
+import { getFilteredMovies, getOnlyShortMovies } from '../../utils';
 
 export const SavedMovies = () => {
   const { values, handleChange, errors, isValid, resetForm } =
@@ -22,13 +23,6 @@ export const SavedMovies = () => {
   const handleChangeCheckBoxState = () => {
     setIsShortMovies(state => !state);
   };
-
-  const filteredMovies = movies =>
-    movies.filter(movie =>
-      movie.nameRU.toLowerCase().includes(values.movie.toLowerCase().trim())
-    );
-  const filteredOnlyShortMovies = movies =>
-    movies.filter(movie => movie.duration <= 40);
 
   const currentList = useMemo(() => {
     if (isShortMovies && !isFilter) {
@@ -60,14 +54,14 @@ export const SavedMovies = () => {
       return;
     } else {
       setInputError(false);
+      setIsNothingFound(false);
+      setIsFilter(true);
     }
-    setIsNothingFound(false);
-    setIsFilter(true);
 
-    const filteredAllMovies = filteredMovies(moviesToShow);
+    const filteredAllMovies = getFilteredMovies(moviesToShow, values.movie);
 
     setFilteredMovie(filteredAllMovies);
-    setFilteredOnlyShortMovies(filteredOnlyShortMovies(filteredAllMovies));
+    setFilteredOnlyShortMovies(getOnlyShortMovies(filteredAllMovies));
   };
 
   useEffect(() => {
@@ -75,19 +69,19 @@ export const SavedMovies = () => {
       .getSavedMovies()
       .then(savedMovies => {
         setMovesToShow(savedMovies);
-        setOnlyShortMovies(filteredOnlyShortMovies(savedMovies));
+        setOnlyShortMovies(getOnlyShortMovies(savedMovies));
       })
       .catch(err => console.error(err.message));
   }, []);
 
   useEffect(() => {
-    setOnlyShortMovies(filteredOnlyShortMovies(moviesToShow));
+    setOnlyShortMovies(getOnlyShortMovies(moviesToShow));
 
     if (isFilter) {
       const filteredAllMovies = filteredMovies(moviesToShow);
 
       setFilteredMovie(filteredAllMovies);
-      setFilteredOnlyShortMovies(filteredOnlyShortMovies(filteredAllMovies));
+      setFilteredOnlyShortMovies(getOnlyShortMovies(filteredAllMovies));
     }
   }, [moviesToShow]);
 
