@@ -125,12 +125,13 @@ export const Movies = () => {
   }, []);
 
   useEffect(() => {
-    isShortMovies &&
+    if (isShortMovies) {
       moviesToShow.length !== 0 &&
-      onlyShortMoviesToShow.length === 0 &&
-      setIsNothingFound(true);
-
-    !isShortMovies && moviesToShow.length !== 0 && setIsNothingFound(false);
+        onlyShortMoviesToShow.length === 0 &&
+        setIsNothingFound(true);
+    } else {
+      moviesToShow.length !== 0 && setIsNothingFound(false);
+    }
   }, [isShortMovies, moviesToShow, onlyShortMoviesToShow]);
 
   return (

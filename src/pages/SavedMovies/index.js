@@ -86,6 +86,16 @@ export const SavedMovies = () => {
     }
   }, [moviesToShow]);
 
+  useEffect(() => {
+    if (isFilter) {
+      if (isShortMovies) {
+        currentList.length === 0 && setIsNothingFound(true);
+      } else {
+        filteredMovie.length !== 0 && setIsNothingFound(false);
+      }
+    }
+  }, [isFilter, currentList]);
+
   const handleResetFilter = () => {
     resetForm({});
     setIsNothingFound(false);
