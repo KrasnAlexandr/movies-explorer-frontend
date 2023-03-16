@@ -40,17 +40,14 @@ export const Movies = () => {
       return;
     } else {
       setInputError(false);
+      setMovesToShow([]);
+      setOtherMoviesToShown([]);
+      setOnlyShortMovies([]);
+      setOtherOnlyShortMovies([]);
+      setIsLoading(true);
+      setIsLoadingError(false);
+      setIsNothingFound(false);
     }
-
-    setMovesToShow([]);
-    setOtherMoviesToShown([]);
-
-    setOnlyShortMovies([]);
-    setOtherOnlyShortMovies([]);
-
-    setIsLoading(true);
-    setIsLoadingError(false);
-    setIsNothingFound(false);
 
     Promise.all([mainApi.getSavedMovies(), moviesApi.getMovies()])
       .then(allData => {
@@ -61,15 +58,6 @@ export const Movies = () => {
         const filteredMovies = allMovies.filter(movie =>
           movie.nameRU.toLowerCase().includes(values.movie.toLowerCase().trim())
         );
-
-        filteredMovies.forEach(movie => {
-          savedMovies.forEach(savedMovie => {
-            if (savedMovie.movieId === movie.id) {
-              movie.isSavedMovie = true;
-              movie._id = savedMovie._id;
-            }
-          });
-        });
 
         const firstPartMovies = filteredMovies.slice(0, cardsToShow);
         const otherMovies = filteredMovies.slice(cardsToShow);
@@ -115,7 +103,7 @@ export const Movies = () => {
     }
   };
 
-  const getCurrentNumForCardsRender = () => {
+  const getCurrentCurrentForCardsRender = () => {
     const innerWidth = window.innerWidth;
 
     if (innerWidth >= 1280) {
@@ -131,12 +119,12 @@ export const Movies = () => {
   };
 
   useEffect(() => {
-    getCurrentNumForCardsRender();
+    getCurrentCurrentForCardsRender();
 
-    window.addEventListener('resize', getCurrentNumForCardsRender);
+    window.addEventListener('resize', getCurrentCurrentForCardsRender);
 
     return () =>
-      window.removeEventListener('resize', getCurrentNumForCardsRender);
+      window.removeEventListener('resize', getCurrentCurrentForCardsRender);
   }, []);
 
   return (
@@ -159,6 +147,8 @@ export const Movies = () => {
         movies={isShortMovies ? onlyShortMoviesToShow : moviesToShow}
         isLoadingError={isLoadingError}
         isNothingFound={isNothingFound}
+        userMovies={userMovies}
+        setMovesToShow={setUserMovies}
       />
 
       {isShortMovies && otherOnlyShortMoviesToShow.length === 0 ? (

@@ -5,6 +5,7 @@ export const MoviesCardList = ({
   isLoadingError,
   isNothingFound,
   setMovesToShow,
+  userMovies,
   movies = []
 }) => (
   <div className='movies'>
@@ -21,6 +22,7 @@ export const MoviesCardList = ({
           {movies.map(movie => (
             <MoviesCard
               data={movie}
+              userMovies={userMovies}
               setMovesToShow={setMovesToShow}
               key={movie.id || movie._id}
             />

@@ -1,13 +1,13 @@
 import './MoviesCard.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { PAGE_MANAGER } from '../../utils/constants';
 import mainApi from '../../utils/Api/MainApi';
 
-export const MoviesCard = ({ data, setMovesToShow }) => {
+export const MoviesCard = ({ data, setMovesToShow, userMovies }) => {
   const currentPage = useLocation().pathname;
-  const [isSavedMovie, setIsSavedMovie] = useState(data.isSavedMovie);
-  const [moveId, setMoveId] = useState(data._id);
+  const [isSavedMovie, setIsSavedMovie] = useState(false);
+  const [moveId, setMoveId] = useState('');
 
   const { trailerLink, image, nameRU, duration } = data;
 
@@ -40,6 +40,7 @@ export const MoviesCard = ({ data, setMovesToShow }) => {
         nameEN: data.nameEN
       })
       .then(movieData => {
+        setMovesToShow(currentList => [movieData, ...currentList]);
         setMoveId(movieData._id);
         setIsSavedMovie(true);
       })
@@ -52,12 +53,9 @@ export const MoviesCard = ({ data, setMovesToShow }) => {
       .then(() => {
         setMoveId(null);
         setIsSavedMovie(false);
-
-        if (currentPage === PAGE_MANAGER.SAVED_MOVIES) {
-          setMovesToShow(savedMoviesList =>
-            savedMoviesList.filter(movie => movie._id !== moveId)
-          );
-        }
+        setMovesToShow(savedMoviesList =>
+          savedMoviesList.filter(movie => movie._id !== moveId)
+        );
       })
       .catch(err => console.error(err.message));
   };
@@ -89,6 +87,20 @@ export const MoviesCard = ({ data, setMovesToShow }) => {
       />
     );
   };
+
+  useEffect(() => {
+    userMovies &&
+      userMovies.forEach(movie => {
+        if (movie.movieId === data.id) {
+          setIsSavedMovie(true);
+          setMoveId(movie._id);
+        }
+      });
+
+    if (data._id) {
+      setMoveId(data._id);
+    }
+  }, [userMovies, data]);
 
   const currentImage = () => {
     return currentPage === PAGE_MANAGER.MOVIES ? movieImage(image.url) : image;
