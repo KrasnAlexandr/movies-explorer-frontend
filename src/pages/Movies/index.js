@@ -127,6 +127,15 @@ export const Movies = () => {
       window.removeEventListener('resize', getCurrentCurrentForCardsRender);
   }, []);
 
+  useEffect(() => {
+    isShortMovies &&
+      moviesToShow.length !== 0 &&
+      onlyShortMoviesToShow.length === 0 &&
+      setIsNothingFound(true);
+
+    !isShortMovies && moviesToShow.length !== 0 && setIsNothingFound(false);
+  }, [isShortMovies, moviesToShow, onlyShortMoviesToShow]);
+
   return (
     <>
       <SearchForm
