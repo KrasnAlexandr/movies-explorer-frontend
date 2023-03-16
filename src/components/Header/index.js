@@ -8,7 +8,7 @@ import { Navigation } from '../Navigation';
 import { AuthHeaderButtons } from '../AuthHeaderButtons';
 export const Header = () => {
   const currentPage = useLocation().pathname;
-  const currentUser = useContext(CurrentUserContext);
+  const [currentUser, setCurrenUser] = useContext(CurrentUserContext);
 
   const isAuthPage =
     currentPage === PAGE_MANAGER.SIGNIN || currentPage === PAGE_MANAGER.SIGNUP;

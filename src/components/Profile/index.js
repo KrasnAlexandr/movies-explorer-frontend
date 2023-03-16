@@ -8,8 +8,8 @@ import { PAGE_MANAGER } from '../../utils/constants';
 import authApi from '../../utils/Api/AuthApi';
 import mainApi from '../../utils/Api/MainApi';
 
-export const ProfileContent = ({ setCurrenUser }) => {
-  const currentUser = useContext(CurrentUserContext);
+export const ProfileContent = () => {
+  const [currentUser, setCurrenUser] = useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
   const [errorMessage, setErrorMessage] = useState('');
@@ -48,6 +48,8 @@ export const ProfileContent = ({ setCurrenUser }) => {
     navigate(`${PAGE_MANAGER.HOME}`);
     window.location.reload();
   };
+
+  console.log(currentUser);
 
   useEffect(() => {
     currentUser && resetForm(currentUser);

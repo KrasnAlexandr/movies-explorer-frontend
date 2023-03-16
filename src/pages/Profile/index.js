@@ -1,7 +1,7 @@
 import { ProfileContent } from '../../components/Profile';
 
-export const Profile = ({ setCurrenUser }) => (
+export const Profile = () => (
   <>
-    <ProfileContent setCurrenUser={setCurrenUser} />
+    <ProfileContent />
   </>
 );

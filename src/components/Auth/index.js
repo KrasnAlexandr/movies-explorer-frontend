@@ -4,14 +4,16 @@ import { AuthForm } from '../AuthForm';
 import { AuthFooter } from '../AuthFooter';
 import useFormWithValidation from '../../hooks/useFormWithValidation';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import authApi from '../../utils/Api/AuthApi';
 import { PAGE_MANAGER } from '../../utils/constants';
 import MainApi from '../../utils/Api/MainApi';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-export const Auth = ({ isSignupPage, setCurrenUser }) => {
+export const Auth = ({ isSignupPage }) => {
   const navigate = useNavigate();
   const currentPage = useLocation().pathname;
+  const [currentUser, setCurrenUser] = useContext(CurrentUserContext);
 
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation({});
