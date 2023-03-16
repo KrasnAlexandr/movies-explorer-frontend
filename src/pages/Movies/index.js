@@ -4,8 +4,9 @@ import { Preloader } from '../../components/Preloader/Preloader';
 import { MoviesCardList } from '../../components/MoviesCardList';
 import { LoadingButton } from '../../components/LoadingButton';
 import useFormWithValidation from '../../hooks/useFormWithValidation';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import moviesApi from '../../utils/Api/MoviesApi';
+import mainApi from '../../utils/Api/MainApi';
 
 export const Movies = () => {
   const { values, handleChange, errors, isValid, resetForm } =
@@ -15,6 +16,8 @@ export const Movies = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingError, setIsLoadingError] = useState(false);
   const [isNothingFound, setIsNothingFound] = useState(false);
+
+  const [userMovies, setUserMovies] = useState([]);
 
   const [moviesToShow, setMovesToShow] = useState([]);
   const [otherMoviesToShown, setOtherMoviesToShown] = useState([]);
@@ -49,12 +52,24 @@ export const Movies = () => {
     setIsLoadingError(false);
     setIsNothingFound(false);
 
-    moviesApi
-      .getMovies()
-      .then(movies => {
-        const filteredMovies = movies.filter(movie =>
+    Promise.all([mainApi.getSavedMovies(), moviesApi.getMovies()])
+      .then(allData => {
+        const [savedMovies, allMovies] = allData;
+
+        setUserMovies(savedMovies);
+
+        const filteredMovies = allMovies.filter(movie =>
           movie.nameRU.toLowerCase().includes(values.movie.toLowerCase().trim())
         );
+
+        filteredMovies.forEach(movie => {
+          savedMovies.forEach(savedMovie => {
+            if (savedMovie.movieId === movie.id) {
+              movie.isSavedMovie = true;
+              movie._id = savedMovie._id;
+            }
+          });
+        });
 
         const firstPartMovies = filteredMovies.slice(0, cardsToShow);
         const otherMovies = filteredMovies.slice(cardsToShow);
@@ -80,7 +95,7 @@ export const Movies = () => {
       .finally(() => setIsLoading(false));
   };
 
-  const handleAddFilmToShow = useCallback(() => {
+  const handleAddFilmToShow = () => {
     if (isShortMovies) {
       const newListShortMoviesToShow = [
         ...onlyShortMoviesToShow,
@@ -98,18 +113,7 @@ export const Movies = () => {
       setMovesToShow(newListMoviesToShow);
       setOtherMoviesToShown(otherMoviesToShown.slice(cardsToAdd));
     }
-  }, [
-    cardsToAdd,
-    moviesToShow,
-    setMovesToShow,
-    otherMoviesToShown,
-    setOtherMoviesToShown,
-    isShortMovies,
-    onlyShortMoviesToShow,
-    setOnlyShortMovies,
-    otherOnlyShortMoviesToShow,
-    setOtherOnlyShortMovies
-  ]);
+  };
 
   const getCurrentNumForCardsRender = () => {
     const innerWidth = window.innerWidth;

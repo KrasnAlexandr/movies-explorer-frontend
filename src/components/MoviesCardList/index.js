@@ -4,6 +4,7 @@ import { MoviesCard } from '../MoviesCard';
 export const MoviesCardList = ({
   isLoadingError,
   isNothingFound,
+  setMovesToShow,
   movies = []
 }) => (
   <div className='movies'>
@@ -18,7 +19,11 @@ export const MoviesCardList = ({
       ) : (
         <>
           {movies.map(movie => (
-            <MoviesCard data={movie} key={movie.id} />
+            <MoviesCard
+              data={movie}
+              setMovesToShow={setMovesToShow}
+              key={movie.id || movie._id}
+            />
           ))}
         </>
       )}

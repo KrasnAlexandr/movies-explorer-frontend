@@ -18,7 +18,7 @@ function App() {
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      mainApi.getUserInfo().then(res => setCurrenUser(res));
+      mainApi.getUserInfo(jwt).then(userInfo => setCurrenUser(userInfo));
     }
   }, []);
 

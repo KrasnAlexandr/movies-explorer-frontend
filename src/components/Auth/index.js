@@ -21,7 +21,7 @@ export const Auth = ({ isSignupPage, setCurrenUser }) => {
   const signInAndSaveJwt = async () => {
     await authApi.signIn(values).then(res => {
       localStorage.setItem('jwt', res.token);
-      MainApi.getUserInfo().then(res => {
+      MainApi.getUserInfo(res.token).then(res => {
         setCurrenUser(res);
         navigate(PAGE_MANAGER.MOVIES);
       });

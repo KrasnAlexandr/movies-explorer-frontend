@@ -1,12 +1,14 @@
 import './SearchForm.css';
 import { useLocation } from 'react-router-dom';
+import { PAGE_MANAGER } from '../../utils/constants';
 
 export const SearchForm = ({
   handleSubmit,
   values,
   handleChange,
   children,
-  error
+  error,
+  resetForm
 }) => {
   const currentPage = useLocation().pathname;
 
@@ -35,6 +37,14 @@ export const SearchForm = ({
         >
           Нужно ввести ключевое слово
         </span>
+        {currentPage === PAGE_MANAGER.SAVED_MOVIES && (
+          <button
+            className='search__reset-button'
+            type='button'
+            title='Сбросить фильтр'
+            onClick={resetForm}
+          />
+        )}
         <button className='search__button' type='submit' title='Поиск' />
         <div className='search__filter'>{children}</div>
       </div>

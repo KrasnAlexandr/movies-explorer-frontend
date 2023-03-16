@@ -6,22 +6,24 @@ class MainApi extends Api {
       mainUrl: 'https://api.movies.alexred.nomoredomains.work',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+        'Content-Type': 'application/json'
       }
     });
   }
 
-  getUserInfo() {
+  getUserInfo(jwt) {
     return fetch(`${this.mainUrl}/users/me`, {
-      headers: this.headers
+      headers: { Authorization: `Bearer ${jwt}`, ...this.headers }
     }).then(this.checkResponse);
   }
 
   updateUserInfo({ name, email }) {
     return fetch(`${this.mainUrl}/users/me`, {
       method: 'PATCH',
-      headers: this.headers,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        ...this.headers
+      },
       body: JSON.stringify({
         name: `${name}`,
         email: `${email}`
@@ -31,14 +33,20 @@ class MainApi extends Api {
 
   getSavedMovies() {
     return fetch(`${this.mainUrl}/movies`, {
-      headers: this.headers
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        ...this.headers
+      }
     }).then(this.checkResponse);
   }
 
   addMovie(moveData) {
     return fetch(`${this.mainUrl}/movies`, {
       method: 'POST',
-      headers: this.headers,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        ...this.headers
+      },
       body: JSON.stringify({
         ...moveData
       })
@@ -48,7 +56,10 @@ class MainApi extends Api {
   removeMovie(moveId) {
     return fetch(`${this.mainUrl}/movies/${moveId}`, {
       method: 'DELETE',
-      headers: this.headers
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        ...this.headers
+      }
     }).then(this.checkResponse);
   }
 }

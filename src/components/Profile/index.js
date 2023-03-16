@@ -43,16 +43,17 @@ export const ProfileContent = ({ setCurrenUser }) => {
   };
 
   const handleSignOut = () => {
-    setCurrenUser(null);
     authApi.signOut();
+    setCurrenUser(null);
     navigate(`${PAGE_MANAGER.HOME}`);
+    window.location.reload();
   };
 
   useEffect(() => {
     currentUser && resetForm(currentUser);
   }, [currentUser, resetForm]);
 
-  const editButtonState = !isValid || isLoading;
+  const isEditButtonDisable = !isValid || isLoading;
 
   return (
     <div className='profile'>
@@ -100,11 +101,11 @@ export const ProfileContent = ({ setCurrenUser }) => {
           )}
           <button
             className={`profile__edit ${
-              editButtonState ? 'profile__edit_type_disabled' : ''
+              isEditButtonDisable ? 'profile__edit_type_disabled' : ''
             }`}
             type='submit'
             title='Редактировать'
-            disabled={editButtonState}
+            disabled={isEditButtonDisable}
           >
             {isInfoUpdated
               ? 'Данные были изменены'

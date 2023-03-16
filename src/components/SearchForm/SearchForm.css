@@ -71,6 +71,25 @@
   opacity: 0.8;
 }
 
+.search__reset-button {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(66, 133, 244, 1);
+  background-image: url('../../images/delete_icon.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+
+  position: absolute;
+  top: 66px;
+  right: 45px;
+}
+
+.search__button:hover {
+  opacity: 0.8;
+}
+
 .search__filter {
   margin-top: 42px;
   text-align: center;
@@ -87,7 +106,8 @@
     top: 130px;
   }
 
-  .search__button {
+  .search__button,
+  .search__reset-button {
     top: 86px;
   }
 }
