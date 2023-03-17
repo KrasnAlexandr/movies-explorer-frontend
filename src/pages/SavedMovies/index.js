@@ -59,25 +59,21 @@ export const SavedMovies = () => {
 
     if (!isValid) {
       setInputError(true);
-      return;
     } else {
       setInputError(false);
       setIsNothingFound(false);
       setIsFilter(true);
+      updateCurrentList();
     }
-
-    updateCurrentList();
   };
 
-  useEffect(() => {
-    mainApi
-      .getSavedMovies()
-      .then(savedMovies => {
-        setMovesToShow(savedMovies);
-        setOnlyShortMovies(getOnlyShortMovies(savedMovies));
-      })
-      .catch(err => console.error(err.message));
-  }, []);
+  const handleResetFilter = () => {
+    resetForm({});
+    setIsNothingFound(false);
+    setIsFilter(false);
+    setFilteredMovie([]);
+    setFilteredOnlyShortMovies([]);
+  };
 
   useEffect(() => {
     setOnlyShortMovies(getOnlyShortMovies(moviesToShow));
@@ -98,13 +94,15 @@ export const SavedMovies = () => {
     }
   }, [isFilter, currentList]);
 
-  const handleResetFilter = () => {
-    resetForm({});
-    setIsNothingFound(false);
-    setIsFilter(false);
-    setFilteredMovie([]);
-    setFilteredOnlyShortMovies([]);
-  };
+  useEffect(() => {
+    mainApi
+      .getSavedMovies()
+      .then(savedMovies => {
+        setMovesToShow(savedMovies);
+        setOnlyShortMovies(getOnlyShortMovies(savedMovies));
+      })
+      .catch(err => console.error(err.message));
+  }, []);
 
   return (
     <>
