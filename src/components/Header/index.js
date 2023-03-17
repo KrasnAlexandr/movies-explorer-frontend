@@ -8,7 +8,8 @@ import { Navigation } from '../Navigation';
 import { AuthHeaderButtons } from '../AuthHeaderButtons';
 export const Header = () => {
   const currentPage = useLocation().pathname;
-  const [currentUser, setCurrenUser] = useContext(CurrentUserContext);
+  const [currentUser, setCurrenUser, hasToken, setHasToken] =
+    useContext(CurrentUserContext);
 
   const isAuthPage =
     currentPage === PAGE_MANAGER.SIGNIN || currentPage === PAGE_MANAGER.SIGNUP;
@@ -23,7 +24,7 @@ export const Header = () => {
         <header className={`header ${isHomePage ? 'header_type_green' : ''}`}>
           <div className='header__container'>
             <MainLogo className='header__logo' />
-            {currentUser ? <Navigation /> : <AuthHeaderButtons />}
+            {hasToken ? <Navigation /> : <AuthHeaderButtons />}
           </div>
         </header>
       )}

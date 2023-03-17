@@ -11,7 +11,8 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 export const SavedMovies = () => {
   const navigate = useNavigate();
-  const [currentUser, setCurrenUser] = useContext(CurrentUserContext);
+  const [currentUser, setCurrenUser, hasToken, setHasToken] =
+    useContext(CurrentUserContext);
 
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
@@ -103,18 +104,27 @@ export const SavedMovies = () => {
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
+      setHasToken(true);
       mainApi.getUserInfo(jwt).then(userInfo => setCurrenUser(userInfo));
     } else {
       navigate(PAGE_MANAGER.HOME);
     }
 
-    mainApi
-      .getSavedMovies()
-      .then(savedMovies => {
-        setMovesToShow(savedMovies.reverse());
-        setOnlyShortMovies(getOnlyShortMovies(savedMovies));
-      })
-      .catch(err => console.error(err.message));
+    const savedMovies = localStorage.getItem('savedMovies');
+
+    if (savedMovies) {
+      const parseMovies = JSON.parse(savedMovies);
+      setMovesToShow(parseMovies);
+      setOnlyShortMovies(getOnlyShortMovies(parseMovies));
+    } else {
+      mainApi
+        .getSavedMovies()
+        .then(savedMovies => {
+          setMovesToShow(savedMovies.reverse());
+          setOnlyShortMovies(getOnlyShortMovies(savedMovies));
+        })
+        .catch(err => console.error(err.message));
+    }
   }, []);
 
   return (

@@ -13,7 +13,8 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 export const Auth = ({ isSignupPage }) => {
   const navigate = useNavigate();
   const currentPage = useLocation().pathname;
-  const [currentUser, setCurrenUser] = useContext(CurrentUserContext);
+  const [currentUser, setCurrenUser, hasToken, setHasToken] =
+    useContext(CurrentUserContext);
 
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation({});
@@ -25,6 +26,7 @@ export const Auth = ({ isSignupPage }) => {
       localStorage.setItem('jwt', res.token);
       MainApi.getUserInfo(res.token).then(res => {
         setCurrenUser(res);
+        setHasToken(true);
         navigate(PAGE_MANAGER.MOVIES);
       });
     });

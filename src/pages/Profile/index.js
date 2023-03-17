@@ -7,11 +7,13 @@ import { useNavigate } from 'react-router-dom';
 
 export const Profile = () => {
   const navigate = useNavigate();
-  const [currentUser, setCurrenUser] = useContext(CurrentUserContext);
+  const [currentUser, setCurrenUser, hasToken, setHasToken] =
+    useContext(CurrentUserContext);
 
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
+      setHasToken(true);
       mainApi.getUserInfo(jwt).then(userInfo => setCurrenUser(userInfo));
     } else {
       navigate(PAGE_MANAGER.HOME);

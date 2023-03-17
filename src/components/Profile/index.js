@@ -9,7 +9,8 @@ import authApi from '../../utils/Api/AuthApi';
 import mainApi from '../../utils/Api/MainApi';
 
 export const ProfileContent = () => {
-  const [currentUser, setCurrenUser] = useContext(CurrentUserContext);
+  const [currentUser, setCurrenUser, hasToken, setHasToken] =
+    useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
   const [errorMessage, setErrorMessage] = useState('');
@@ -45,6 +46,7 @@ export const ProfileContent = () => {
   const handleSignOut = () => {
     authApi.signOut();
     setCurrenUser(null);
+    setHasToken(false);
     navigate(`${PAGE_MANAGER.HOME}`);
     window.location.reload();
   };

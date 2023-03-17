@@ -14,7 +14,8 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 export const Movies = () => {
   const navigate = useNavigate();
-  const [currentUser, setCurrenUser] = useContext(CurrentUserContext);
+  const [currentUser, setCurrenUser, hasToken, setHasToken] =
+    useContext(CurrentUserContext);
 
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
@@ -166,6 +167,7 @@ export const Movies = () => {
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
+      setHasToken(true);
       mainApi.getUserInfo(jwt).then(userInfo => setCurrenUser(userInfo));
     } else {
       navigate(PAGE_MANAGER.HOME);
