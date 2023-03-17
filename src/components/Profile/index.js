@@ -49,8 +49,6 @@ export const ProfileContent = () => {
     window.location.reload();
   };
 
-  console.log(currentUser);
-
   useEffect(() => {
     currentUser && resetForm(currentUser);
   }, [currentUser, resetForm]);

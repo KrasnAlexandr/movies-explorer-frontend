@@ -98,7 +98,7 @@ export const SavedMovies = () => {
     mainApi
       .getSavedMovies()
       .then(savedMovies => {
-        setMovesToShow(savedMovies);
+        setMovesToShow(savedMovies.reverse());
         setOnlyShortMovies(getOnlyShortMovies(savedMovies));
       })
       .catch(err => console.error(err.message));
