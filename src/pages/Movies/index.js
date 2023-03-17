@@ -31,8 +31,12 @@ export const Movies = () => {
   const [cardsToAdd, setCardsToAdd] = useState(0);
 
   const handleChangeCheckBoxState = () => {
-    setIsShortMovies(state => !state);
+    setIsShortMovies(state => {
+      localStorage.setItem('toggle', JSON.stringify(!state));
+      return !state;
+    });
   };
+
   const handleSubmit = evt => {
     evt.preventDefault();
 
@@ -58,22 +62,41 @@ export const Movies = () => {
 
         const newList = getFilteredMovies(allMovies, values.movie);
 
-        const firstPartMovies = newList.slice(0, cardsToShow);
-        const otherMovies = newList.slice(cardsToShow);
-
-        const onlyShortMovies = getOnlyShortMovies(newList);
-
-        const firstPartShortMovies = onlyShortMovies.slice(0, cardsToShow);
-        const otherShortMovies = onlyShortMovies.slice(cardsToShow);
-
         if (newList.length === 0) {
           setIsNothingFound(true);
         } else {
+          const firstPartMovies = newList.slice(0, cardsToShow);
+          const otherMovies = newList.slice(cardsToShow);
+
+          const onlyShortMovies = getOnlyShortMovies(newList);
+
+          const firstPartShortMovies = onlyShortMovies.slice(0, cardsToShow);
+          const otherShortMovies = onlyShortMovies.slice(cardsToShow);
+
           setMovesToShow(firstPartMovies);
           setOtherMoviesToShown(otherMovies);
 
           setOnlyShortMovies(firstPartShortMovies);
           setOtherOnlyShortMovies(otherShortMovies);
+
+          localStorage.setItem('input', JSON.stringify(values.movie));
+          localStorage.setItem('toggle', JSON.stringify(isShortMovies));
+          localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+
+          localStorage.setItem(
+            'firstPartMovies',
+            JSON.stringify(firstPartMovies)
+          );
+          localStorage.setItem('otherMovies', JSON.stringify(otherMovies));
+
+          localStorage.setItem(
+            'firstPartShortMovies',
+            JSON.stringify(firstPartShortMovies)
+          );
+          localStorage.setItem(
+            'otherShortMovies',
+            JSON.stringify(otherShortMovies)
+          );
         }
       })
       .catch(() => setIsLoadingError(true))
@@ -133,6 +156,29 @@ export const Movies = () => {
       moviesToShow.length !== 0 && setIsNothingFound(false);
     }
   }, [isShortMovies, moviesToShow, onlyShortMoviesToShow]);
+
+  useEffect(() => {
+    const inputValue = localStorage.getItem('input');
+    const toggle = localStorage.getItem('toggle');
+    const savedMovies = localStorage.getItem('savedMovies');
+
+    const firstPartMovies = localStorage.getItem('firstPartMovies');
+    const otherMovies = localStorage.getItem('otherMovies');
+
+    const firstPartShortMovies = localStorage.getItem('firstPartShortMovies');
+    const otherShortMovies = localStorage.getItem('otherShortMovies');
+
+    inputValue && resetForm({ movie: JSON.parse(inputValue) });
+    toggle && setIsShortMovies(JSON.parse(toggle));
+    savedMovies && setUserMovies(JSON.parse(savedMovies));
+
+    firstPartMovies && setMovesToShow(JSON.parse(firstPartMovies));
+    otherMovies && setOtherMoviesToShown(JSON.parse(otherMovies));
+
+    firstPartShortMovies &&
+      setOnlyShortMovies(JSON.parse(firstPartShortMovies));
+    otherShortMovies && setOtherOnlyShortMovies(JSON.parse(otherShortMovies));
+  }, []);
 
   return (
     <>

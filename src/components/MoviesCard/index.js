@@ -41,7 +41,13 @@ const MoviesCard = ({ data, setMovesToShow, userMovies }) => {
         nameEN: data.nameEN
       })
       .then(movieData => {
-        setMovesToShow(currentList => [movieData, ...currentList]);
+        setMovesToShow(currentList => {
+          localStorage.setItem(
+            'savedMovies',
+            JSON.stringify([movieData, ...currentList])
+          );
+          return [movieData, ...currentList];
+        });
         setMoveId(movieData._id);
         setIsSavedMovie(true);
       })
@@ -54,9 +60,11 @@ const MoviesCard = ({ data, setMovesToShow, userMovies }) => {
       .then(() => {
         setMoveId(null);
         setIsSavedMovie(false);
-        setMovesToShow(savedMoviesList =>
-          savedMoviesList.filter(movie => movie._id !== moveId)
-        );
+        setMovesToShow(savedMoviesList => {
+          const newList = savedMoviesList.filter(movie => movie._id !== moveId);
+          localStorage.setItem('savedMovies', JSON.stringify(newList));
+          return newList;
+        });
       })
       .catch(err => console.error(err.message));
   };
