@@ -28,28 +28,9 @@ function App() {
       <main>
         <Routes>
           <Route path={PAGE_MANAGER.HOME} element={<Main />} />
-          <Route
-            path={PAGE_MANAGER.MOVIES}
-            element={
-              currentUser ? <Movies /> : <Navigate to={PAGE_MANAGER.HOME} />
-            }
-          />
-          <Route
-            path={PAGE_MANAGER.SAVED_MOVIES}
-            element={
-              currentUser ? (
-                <SavedMovies />
-              ) : (
-                <Navigate to={PAGE_MANAGER.HOME} />
-              )
-            }
-          />
-          <Route
-            path={PAGE_MANAGER.PROFILE}
-            element={
-              currentUser ? <Profile /> : <Navigate to={PAGE_MANAGER.HOME} />
-            }
-          />
+          <Route path={PAGE_MANAGER.MOVIES} element={<Movies />} />
+          <Route path={PAGE_MANAGER.SAVED_MOVIES} element={<SavedMovies />} />
+          <Route path={PAGE_MANAGER.PROFILE} element={<Profile />} />
           <Route path={PAGE_MANAGER.SIGNIN} element={<Auth />} />
           <Route path={PAGE_MANAGER.SIGNUP} element={<Auth isSignupPage />} />
           <Route path='*' element={<NotFound />} />

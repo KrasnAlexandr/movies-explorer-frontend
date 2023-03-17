@@ -2,11 +2,17 @@ import { FilterCheckbox } from '../../components/FilterCheckbox';
 import { SearchForm } from '../../components/SearchForm';
 import { MoviesCardList } from '../../components/MoviesCardList';
 import useFormWithValidation from '../../hooks/useFormWithValidation';
-import { useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import mainApi from '../../utils/Api/MainApi';
 import { getFilteredMovies, getOnlyShortMovies } from '../../utils';
+import { PAGE_MANAGER } from '../../utils/constants';
+import { useNavigate } from 'react-router-dom';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 export const SavedMovies = () => {
+  const navigate = useNavigate();
+  const [currentUser, setCurrenUser] = useContext(CurrentUserContext);
+
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
   const [inputError, setInputError] = useState(false);
@@ -95,6 +101,13 @@ export const SavedMovies = () => {
   }, [isFilter, currentList]);
 
   useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      mainApi.getUserInfo(jwt).then(userInfo => setCurrenUser(userInfo));
+    } else {
+      navigate(PAGE_MANAGER.HOME);
+    }
+
     mainApi
       .getSavedMovies()
       .then(savedMovies => {
