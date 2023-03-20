@@ -1,5 +1,5 @@
 import './Profile.css';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import useFormWithValidation from '../../hooks/useFormWithValidation';
 import { InputWithValidation } from '../InputWithValidation';
@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { PAGE_MANAGER } from '../../utils/constants';
 import authApi from '../../utils/Api/AuthApi';
 import mainApi from '../../utils/Api/MainApi';
+import { checkingEmailForValidity } from '../../utils';
 
 export const ProfileContent = () => {
   const [currentUser, setCurrenUser, hasToken, setHasToken] =
@@ -55,7 +56,21 @@ export const ProfileContent = () => {
     currentUser && resetForm(currentUser);
   }, [currentUser, resetForm]);
 
-  const isEditButtonDisable = !isValid || isLoading;
+  const isNewData = useMemo(() => {
+    if (values.name && values.email && currentUser) {
+      const isNewName = currentUser.name !== values.name;
+      const isNewEMail = currentUser.email !== values.email;
+
+      return isNewName || isNewEMail;
+    }
+  }, [values, currentUser]);
+
+  const isValidEmail = useMemo(() => {
+    if (values.email) return checkingEmailForValidity(values.email);
+  }, [values]);
+
+  const isEditButtonDisable =
+    !isValid || isLoading || !isNewData || !isValidEmail;
 
   return (
     <div className='profile'>

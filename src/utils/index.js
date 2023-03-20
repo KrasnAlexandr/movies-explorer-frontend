@@ -1,4 +1,5 @@
 import { MIN_IN_HOUR, SHORT_FILM_DURATION } from './constants';
+import validator from 'validator/es';
 
 export const getFilteredMovies = (movies, input) =>
   movies.filter(movie =>
@@ -18,3 +19,6 @@ export const timeConverter = time => {
     return minutes === 0 ? `${hours}ч` : `${hours}ч${minutes}м`;
   }
 };
+
+export const checkingEmailForValidity = inputValue =>
+  validator.isEmail(inputValue);
