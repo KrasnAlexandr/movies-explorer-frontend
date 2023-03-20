@@ -56,3 +56,37 @@ export const HEADER_NAVIGATION_PARAMS = [
 ];
 
 export const DEFAULT_ERROR_MESSAGE = 'Что-то пошло не так...';
+
+export const MIN_IN_HOUR = 60;
+
+export const SHORT_FILM_DURATION = 40;
+
+export const MOVIES_PAGE_PARAMS = {
+  WEB: {
+    BREAKPOINT: 1280, //px
+    MOVIES_TO_SHOW: 12,
+    ADD_BY_N_MOVIES: 4
+  },
+  TABLET: {
+    MOVIES_TO_SHOW: 8,
+    ADD_BY_N_MOVIES: 2
+  },
+  MOBILE: {
+    BREAKPOINT: 480, //px
+    MOVIES_TO_SHOW: 5,
+    ADD_BY_N_MOVIES: 1
+  }
+};
+
+export const LOCAL_STORAGE_MAP = {
+  JWT_TOKEN: 'jwt',
+  MOVIES_PAGE: {
+    INPUT: 'input',
+    TOGGLE: 'toggle',
+    SAVED_MOVIES: 'savedMovies',
+    FIRST_PART_MOVIES: 'firstPartMovies',
+    OTHER_MOVIES: 'otherMovies',
+    FIRST_PART_SHORT_MOVIES: 'firstPartShortMovies',
+    OTHER_SHORT_MOVIES: 'otherShortMovies'
+  }
+};

@@ -1,9 +1,10 @@
 import './MoviesCard.css';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { PAGE_MANAGER } from '../../utils/constants';
+import { LOCAL_STORAGE_MAP, PAGE_MANAGER } from '../../utils/constants';
 import mainApi from '../../utils/Api/MainApi';
 import React, { memo } from 'react';
+import { timeConverter } from '../../utils';
 
 const MoviesCard = ({ data, setMovesToShow, userMovies }) => {
   const currentPage = useLocation().pathname;
@@ -13,17 +14,6 @@ const MoviesCard = ({ data, setMovesToShow, userMovies }) => {
   const { trailerLink, image, nameRU, duration } = data;
 
   const movieImage = imageLink => `https://api.nomoreparties.co/${imageLink}`;
-
-  const timeConverter = time => {
-    if (time < 60) {
-      return `${time}м`;
-    } else {
-      const hours = Math.floor(time / 60);
-      const minutes = time - hours * 60;
-
-      return minutes === 0 ? `${hours}ч` : `${hours}ч${minutes}м`;
-    }
-  };
 
   const handleSaveMovie = async () => {
     await mainApi
@@ -43,7 +33,7 @@ const MoviesCard = ({ data, setMovesToShow, userMovies }) => {
       .then(movieData => {
         setMovesToShow(currentList => {
           localStorage.setItem(
-            'savedMovies',
+            LOCAL_STORAGE_MAP.MOVIES_PAGE.SAVED_MOVIES,
             JSON.stringify([movieData, ...currentList])
           );
           return [movieData, ...currentList];
@@ -62,7 +52,10 @@ const MoviesCard = ({ data, setMovesToShow, userMovies }) => {
         setIsSavedMovie(false);
         setMovesToShow(savedMoviesList => {
           const newList = savedMoviesList.filter(movie => movie._id !== moveId);
-          localStorage.setItem('savedMovies', JSON.stringify(newList));
+          localStorage.setItem(
+            LOCAL_STORAGE_MAP.MOVIES_PAGE.SAVED_MOVIES,
+            JSON.stringify(newList)
+          );
           return newList;
         });
       })

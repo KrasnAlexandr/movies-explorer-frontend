@@ -6,7 +6,7 @@ import useFormWithValidation from '../../hooks/useFormWithValidation';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import authApi from '../../utils/Api/AuthApi';
-import { PAGE_MANAGER } from '../../utils/constants';
+import { LOCAL_STORAGE_MAP, PAGE_MANAGER } from '../../utils/constants';
 import MainApi from '../../utils/Api/MainApi';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
@@ -23,7 +23,7 @@ export const Auth = ({ isSignupPage }) => {
 
   const signInAndSaveJwt = async () => {
     await authApi.signIn(values).then(res => {
-      localStorage.setItem('jwt', res.token);
+      localStorage.setItem(LOCAL_STORAGE_MAP.JWT_TOKEN, res.token);
       MainApi.getUserInfo(res.token).then(res => {
         setCurrenUser(res);
         setHasToken(true);
@@ -55,7 +55,7 @@ export const Auth = ({ isSignupPage }) => {
   }, [currentPage]);
 
   useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
+    const jwt = localStorage.getItem(LOCAL_STORAGE_MAP.JWT_TOKEN);
     if (jwt) {
       navigate(PAGE_MANAGER.HOME);
     }

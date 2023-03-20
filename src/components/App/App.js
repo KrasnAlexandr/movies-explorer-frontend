@@ -6,7 +6,7 @@ import { SavedMovies } from '../../pages/SavedMovies';
 import { Profile } from '../../pages/Profile';
 import { Footer } from '../Footer';
 import { Route, Routes } from 'react-router-dom';
-import { PAGE_MANAGER } from '../../utils/constants';
+import { LOCAL_STORAGE_MAP, PAGE_MANAGER } from '../../utils/constants';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import { useEffect, useState } from 'react';
 import { NotFound } from '../../pages/NotFound';
@@ -17,7 +17,7 @@ function App() {
   const [hasToken, setHasToken] = useState(false);
 
   useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
+    const jwt = localStorage.getItem(LOCAL_STORAGE_MAP.JWT_TOKEN);
     if (jwt) {
       setHasToken(true);
       mainApi.getUserInfo(jwt).then(userInfo => setCurrenUser(userInfo));

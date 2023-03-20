@@ -1,4 +1,5 @@
 import Api from './index';
+import { LOCAL_STORAGE_MAP } from '../constants';
 
 class MainApi extends Api {
   constructor() {
@@ -21,7 +22,9 @@ class MainApi extends Api {
     return fetch(`${this.mainUrl}/users/me`, {
       method: 'PATCH',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        Authorization: `Bearer ${localStorage.getItem(
+          LOCAL_STORAGE_MAP.JWT_TOKEN
+        )}`,
         ...this.headers
       },
       body: JSON.stringify({
@@ -34,7 +37,9 @@ class MainApi extends Api {
   getSavedMovies() {
     return fetch(`${this.mainUrl}/movies`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        Authorization: `Bearer ${localStorage.getItem(
+          LOCAL_STORAGE_MAP.JWT_TOKEN
+        )}`,
         ...this.headers
       }
     }).then(this.checkResponse);
@@ -44,7 +49,9 @@ class MainApi extends Api {
     return fetch(`${this.mainUrl}/movies`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        Authorization: `Bearer ${localStorage.getItem(
+          LOCAL_STORAGE_MAP.JWT_TOKEN
+        )}`,
         ...this.headers
       },
       body: JSON.stringify({
@@ -57,7 +64,9 @@ class MainApi extends Api {
     return fetch(`${this.mainUrl}/movies/${moveId}`, {
       method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        Authorization: `Bearer ${localStorage.getItem(
+          LOCAL_STORAGE_MAP.JWT_TOKEN
+        )}`,
         ...this.headers
       }
     }).then(this.checkResponse);

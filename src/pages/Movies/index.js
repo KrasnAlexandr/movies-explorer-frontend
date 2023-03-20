@@ -9,6 +9,7 @@ import moviesApi from '../../utils/Api/MoviesApi';
 import mainApi from '../../utils/Api/MainApi';
 import { getFilteredMovies, getOnlyShortMovies } from '../../utils';
 import { ProtectedRoute } from '../../components/ProtectedRoute';
+import { LOCAL_STORAGE_MAP, MOVIES_PAGE_PARAMS } from '../../utils/constants';
 
 export const Movies = () => {
   const { values, handleChange, errors, isValid, resetForm } =
@@ -33,7 +34,10 @@ export const Movies = () => {
 
   const handleChangeCheckBoxState = () => {
     setIsShortMovies(state => {
-      localStorage.setItem('toggle', JSON.stringify(!state));
+      localStorage.setItem(
+        LOCAL_STORAGE_MAP.MOVIES_PAGE.TOGGLE,
+        JSON.stringify(!state)
+      );
       return !state;
     });
   };
@@ -80,22 +84,34 @@ export const Movies = () => {
           setOnlyShortMovies(firstPartShortMovies);
           setOtherOnlyShortMovies(otherShortMovies);
 
-          localStorage.setItem('input', JSON.stringify(values.movie));
-          localStorage.setItem('toggle', JSON.stringify(isShortMovies));
-          localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+          localStorage.setItem(
+            LOCAL_STORAGE_MAP.MOVIES_PAGE.INPUT,
+            JSON.stringify(values.movie)
+          );
+          localStorage.setItem(
+            LOCAL_STORAGE_MAP.MOVIES_PAGE.TOGGLE,
+            JSON.stringify(isShortMovies)
+          );
+          localStorage.setItem(
+            LOCAL_STORAGE_MAP.MOVIES_PAGE.SAVED_MOVIES,
+            JSON.stringify(savedMovies)
+          );
 
           localStorage.setItem(
-            'firstPartMovies',
+            LOCAL_STORAGE_MAP.MOVIES_PAGE.FIRST_PART_MOVIES,
             JSON.stringify(firstPartMovies)
           );
-          localStorage.setItem('otherMovies', JSON.stringify(otherMovies));
+          localStorage.setItem(
+            LOCAL_STORAGE_MAP.MOVIES_PAGE.OTHER_MOVIES,
+            JSON.stringify(otherMovies)
+          );
 
           localStorage.setItem(
-            'firstPartShortMovies',
+            LOCAL_STORAGE_MAP.MOVIES_PAGE.FIRST_PART_SHORT_MOVIES,
             JSON.stringify(firstPartShortMovies)
           );
           localStorage.setItem(
-            'otherShortMovies',
+            LOCAL_STORAGE_MAP.MOVIES_PAGE.OTHER_SHORT_MOVIES,
             JSON.stringify(otherShortMovies)
           );
         }
@@ -127,15 +143,15 @@ export const Movies = () => {
   const getCurrentCurrentForCardsRender = () => {
     const innerWidth = window.innerWidth;
 
-    if (innerWidth >= 1280) {
-      setCardsToShow(12);
-      setCardsToAdd(4);
-    } else if (innerWidth >= 481) {
-      setCardsToShow(8);
-      setCardsToAdd(2);
-    } else if (innerWidth <= 480) {
-      setCardsToShow(5);
-      setCardsToAdd(1);
+    if (innerWidth >= MOVIES_PAGE_PARAMS.WEB.BREAKPOINT) {
+      setCardsToShow(MOVIES_PAGE_PARAMS.WEB.MOVIES_TO_SHOW);
+      setCardsToAdd(MOVIES_PAGE_PARAMS.WEB.ADD_BY_N_MOVIES);
+    } else if (innerWidth > MOVIES_PAGE_PARAMS.MOBILE.BREAKPOINT) {
+      setCardsToShow(MOVIES_PAGE_PARAMS.TABLET.MOVIES_TO_SHOW);
+      setCardsToAdd(MOVIES_PAGE_PARAMS.TABLET.ADD_BY_N_MOVIES);
+    } else if (innerWidth <= MOVIES_PAGE_PARAMS.MOBILE.BREAKPOINT) {
+      setCardsToShow(MOVIES_PAGE_PARAMS.MOBILE.MOVIES_TO_SHOW);
+      setCardsToAdd(MOVIES_PAGE_PARAMS.MOBILE.ADD_BY_N_MOVIES);
     }
   };
 
@@ -159,15 +175,27 @@ export const Movies = () => {
   }, [isShortMovies, moviesToShow, onlyShortMoviesToShow]);
 
   useEffect(() => {
-    const inputValue = localStorage.getItem('input');
-    const toggle = localStorage.getItem('toggle');
-    const savedMovies = localStorage.getItem('savedMovies');
+    const inputValue = localStorage.getItem(
+      LOCAL_STORAGE_MAP.MOVIES_PAGE.INPUT
+    );
+    const toggle = localStorage.getItem(LOCAL_STORAGE_MAP.MOVIES_PAGE.TOGGLE);
+    const savedMovies = localStorage.getItem(
+      LOCAL_STORAGE_MAP.MOVIES_PAGE.SAVED_MOVIES
+    );
 
-    const firstPartMovies = localStorage.getItem('firstPartMovies');
-    const otherMovies = localStorage.getItem('otherMovies');
+    const firstPartMovies = localStorage.getItem(
+      LOCAL_STORAGE_MAP.MOVIES_PAGE.FIRST_PART_MOVIES
+    );
+    const otherMovies = localStorage.getItem(
+      LOCAL_STORAGE_MAP.MOVIES_PAGE.OTHER_MOVIES
+    );
 
-    const firstPartShortMovies = localStorage.getItem('firstPartShortMovies');
-    const otherShortMovies = localStorage.getItem('otherShortMovies');
+    const firstPartShortMovies = localStorage.getItem(
+      LOCAL_STORAGE_MAP.MOVIES_PAGE.FIRST_PART_SHORT_MOVIES
+    );
+    const otherShortMovies = localStorage.getItem(
+      LOCAL_STORAGE_MAP.MOVIES_PAGE.OTHER_SHORT_MOVIES
+    );
 
     inputValue && resetForm({ movie: JSON.parse(inputValue) });
     toggle && setIsShortMovies(JSON.parse(toggle));

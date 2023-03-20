@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 import mainApi from '../../utils/Api/MainApi';
 import { getFilteredMovies, getOnlyShortMovies } from '../../utils';
 import { ProtectedRoute } from '../../components/ProtectedRoute';
+import { LOCAL_STORAGE_MAP } from '../../utils/constants';
 
 export const SavedMovies = () => {
   const { values, handleChange, errors, isValid, resetForm } =
@@ -96,7 +97,9 @@ export const SavedMovies = () => {
   }, [isFilter, currentList]);
 
   useEffect(() => {
-    const savedMovies = localStorage.getItem('savedMovies');
+    const savedMovies = localStorage.getItem(
+      LOCAL_STORAGE_MAP.MOVIES_PAGE.SAVED_MOVIES
+    );
 
     if (savedMovies) {
       const parseMovies = JSON.parse(savedMovies);
