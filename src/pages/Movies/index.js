@@ -4,19 +4,13 @@ import { Preloader } from '../../components/Preloader/Preloader';
 import { MoviesCardList } from '../../components/MoviesCardList';
 import { LoadingButton } from '../../components/LoadingButton';
 import useFormWithValidation from '../../hooks/useFormWithValidation';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import moviesApi from '../../utils/Api/MoviesApi';
 import mainApi from '../../utils/Api/MainApi';
 import { getFilteredMovies, getOnlyShortMovies } from '../../utils';
-import { PAGE_MANAGER } from '../../utils/constants';
-import { useNavigate } from 'react-router-dom';
-import CurrentUserContext from '../../contexts/CurrentUserContext';
+import { ProtectedRoute } from '../../components/ProtectedRoute';
 
 export const Movies = () => {
-  const navigate = useNavigate();
-  const [currentUser, setCurrenUser, hasToken, setHasToken] =
-    useContext(CurrentUserContext);
-
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
   const [inputError, setInputError] = useState(false);
@@ -165,14 +159,6 @@ export const Movies = () => {
   }, [isShortMovies, moviesToShow, onlyShortMoviesToShow]);
 
   useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      setHasToken(true);
-      mainApi.getUserInfo(jwt).then(userInfo => setCurrenUser(userInfo));
-    } else {
-      navigate(PAGE_MANAGER.HOME);
-    }
-
     const inputValue = localStorage.getItem('input');
     const toggle = localStorage.getItem('toggle');
     const savedMovies = localStorage.getItem('savedMovies');
@@ -196,7 +182,7 @@ export const Movies = () => {
   }, []);
 
   return (
-    <>
+    <ProtectedRoute>
       <SearchForm
         values={values}
         error={inputError}
@@ -226,6 +212,6 @@ export const Movies = () => {
       ) : (
         <LoadingButton onClick={handleAddFilmToShow} />
       )}
-    </>
+    </ProtectedRoute>
   );
 };

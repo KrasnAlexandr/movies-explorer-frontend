@@ -2,18 +2,12 @@ import { FilterCheckbox } from '../../components/FilterCheckbox';
 import { SearchForm } from '../../components/SearchForm';
 import { MoviesCardList } from '../../components/MoviesCardList';
 import useFormWithValidation from '../../hooks/useFormWithValidation';
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import mainApi from '../../utils/Api/MainApi';
 import { getFilteredMovies, getOnlyShortMovies } from '../../utils';
-import { PAGE_MANAGER } from '../../utils/constants';
-import { useNavigate } from 'react-router-dom';
-import CurrentUserContext from '../../contexts/CurrentUserContext';
+import { ProtectedRoute } from '../../components/ProtectedRoute';
 
 export const SavedMovies = () => {
-  const navigate = useNavigate();
-  const [currentUser, setCurrenUser, hasToken, setHasToken] =
-    useContext(CurrentUserContext);
-
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
   const [inputError, setInputError] = useState(false);
@@ -102,14 +96,6 @@ export const SavedMovies = () => {
   }, [isFilter, currentList]);
 
   useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      setHasToken(true);
-      mainApi.getUserInfo(jwt).then(userInfo => setCurrenUser(userInfo));
-    } else {
-      navigate(PAGE_MANAGER.HOME);
-    }
-
     const savedMovies = localStorage.getItem('savedMovies');
 
     if (savedMovies) {
@@ -128,7 +114,7 @@ export const SavedMovies = () => {
   }, []);
 
   return (
-    <>
+    <ProtectedRoute>
       <SearchForm
         values={values}
         error={inputError}
@@ -146,6 +132,6 @@ export const SavedMovies = () => {
         isNothingFound={isNothingFound}
         setMovesToShow={setMovesToShow}
       />
-    </>
+    </ProtectedRoute>
   );
 };

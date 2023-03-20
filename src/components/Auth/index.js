@@ -54,6 +54,13 @@ export const Auth = ({ isSignupPage }) => {
     setAuthError(null);
   }, [currentPage]);
 
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      navigate(PAGE_MANAGER.HOME);
+    }
+  }, []);
+
   return (
     <div className='auth'>
       <AuthHeader isSignupPage={isSignupPage} />
