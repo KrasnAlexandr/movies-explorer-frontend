@@ -1,17 +1,15 @@
 import './FilterCheckbox.css';
 
-export const FilterCheckbox = ({ value, name }) => {
-  const onChange = () => {};
-
+export const FilterCheckbox = ({ checkBoxState, handleChange }) => {
   return (
     <div className='search__checkbox'>
       <label>
         <input
           className='search__checkbox-input'
           type='checkbox'
-          onChange={onChange}
-          name={name}
-          checked={value}
+          onChange={handleChange}
+          name='checkbox'
+          checked={checkBoxState}
         />
         <span className='search__checkbox-icon' />
       </label>

@@ -6,21 +6,28 @@ import { SavedMovies } from '../../pages/SavedMovies';
 import { Profile } from '../../pages/Profile';
 import { Footer } from '../Footer';
 import { Route, Routes } from 'react-router-dom';
-import { PAGE_MANAGER } from '../../utils/constants';
+import { LOCAL_STORAGE_MAP, PAGE_MANAGER } from '../../utils/constants';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NotFound } from '../../pages/NotFound';
-
-const testUser = {
-  name: 'Виталий',
-  email: 'pochta@yandex.ru'
-};
+import mainApi from '../../utils/Api/MainApi';
 
 function App() {
-  const [currentUser, setCurrenUser] = useState(testUser);
+  const [currentUser, setCurrenUser] = useState(null);
+  const [hasToken, setHasToken] = useState(false);
+
+  useEffect(() => {
+    const jwt = localStorage.getItem(LOCAL_STORAGE_MAP.JWT_TOKEN);
+    if (jwt) {
+      setHasToken(true);
+      mainApi.getUserInfo(jwt).then(userInfo => setCurrenUser(userInfo));
+    }
+  }, []);
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider
+      value={[currentUser, setCurrenUser, hasToken, setHasToken]}
+    >
       <Header />
       <main>
         <Routes>

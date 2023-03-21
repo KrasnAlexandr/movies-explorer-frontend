@@ -2,6 +2,7 @@
   width: 100%;
   min-width: var(--min-width);
   color: white;
+  margin-top: auto;
 }
 
 .footer__container {

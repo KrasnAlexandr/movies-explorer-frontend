@@ -1,7 +1,12 @@
 import './AuthFooter.css';
 import { Link } from 'react-router-dom';
 
-export const AuthFooter = ({ isDisabled, isSignupPage = false }) => {
+export const AuthFooter = ({
+  isDisabled,
+  authError,
+  isLoading,
+  isSignupPage = false
+}) => {
   const contentParams = {
     signin: {
       buttonTitle: 'Войти',
@@ -21,15 +26,20 @@ export const AuthFooter = ({ isDisabled, isSignupPage = false }) => {
     ? contentParams.signup
     : contentParams.signin;
 
+  const disabledState = isLoading || isDisabled;
+
   return (
     <div className='auth__footer'>
+      {authError && <p className='auth__error-helper'>{authError}</p>}
       <button
-        className='auth__button'
+        className={`auth__button ${
+          disabledState ? 'auth__button_type_disable' : ''
+        }`}
         type='submit'
         title={currentContent.buttonTitle}
-        disabled={isDisabled}
+        disabled={disabledState}
       >
-        {currentContent.buttonTitle}
+        {isLoading ? 'Загрузка...' : currentContent.buttonTitle}
       </button>
 
       <p className='auth__text'>

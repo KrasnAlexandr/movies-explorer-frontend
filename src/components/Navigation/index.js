@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { HEADER_NAVIGATION_PARAMS } from '../../utils/constants';
 import { ProfileButton } from '../ProfileButton';
 import { Burger } from '../Burger';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu } from '../Menu';
 
 export const Navigation = () => {
@@ -18,6 +18,10 @@ export const Navigation = () => {
   const toggleMenu = () => {
     setIsMenuOpen(state => !state);
   };
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [currentPage]);
 
   return (
     <>
